@@ -9,6 +9,8 @@
 #ifndef	__FILA2_H__
 #define	__FILA2_H__
 
+
+
 struct	sFilaNode2 {
 	void 	*node;			// Ponteiro para a estrutura de dados do NODO
 	struct	sFilaNode2 *ant;	// Ponteiro para o nodo anterior

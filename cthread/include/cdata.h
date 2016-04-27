@@ -4,6 +4,7 @@
  * Esse arquivo pode ser modificado. ENTRETANTO, deve ser utilizada a TCB fornecida.
  *
  */
+ 
 #ifndef __cdata__
 #define __cdata__
 
@@ -12,7 +13,7 @@
 #define	PROCST_EXEC	2
 #define	PROCST_BLOQ	3
 #define	PROCST_TERMINO	4
-
+#include <ucontext.h>
 /* NÃO ALTERAR ESSA struct */
 typedef struct s_TCB { 
 	int		tid; 		// identificador da thread
