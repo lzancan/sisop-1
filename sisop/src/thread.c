@@ -75,12 +75,13 @@ int cria_thread (void* (*start)(void*), void *arg){
 
 int liberando_cpu (){
     em_execucao->state= apta;
-    return escalonador();
+    return escalonador(0);
 }
 
 
 int sincronizacao (int tid){
-    return 0;
+    em_execucao->state=bloqueada;
+    return escalonador(tid);
 }
 
 

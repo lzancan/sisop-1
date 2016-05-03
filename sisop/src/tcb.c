@@ -33,7 +33,7 @@ void cria_contexto_escalonador()
     makecontext( &contexto_escalonador, (void (*)(void))escalonador, 0);
 }
 
-int escalonador(){
+int escalonador(int tid){
 	 if(em_execucao->state==executando){
 	    em_execucao->state=apta;
 	    getcontext(&(em_execucao->context));
@@ -44,12 +44,17 @@ int escalonador(){
                 setcontext(&(em_execucao->context));
                 if(DeleteAtIteratorFila2(&fila_aptos))
                     return 0;
-				//setcontext(&(em_execucao->context));//executa outra thread
+        }
+	 }
+	 if(em_execucao->state==bloqueada){
+        if(AppendFila2(&fila_bloqueados, em_execucao)){
+            if(tid != 0){
+			// fazer //
+            }
         }
 	 }
 
      return -1;
-
 }
 
 
