@@ -11,6 +11,7 @@
 #include "../include/fila2.h"
 #include "../include/cthread.h"
 
+
 enum estados_das_threads {
         criada=0,
         apta=1,
@@ -19,8 +20,8 @@ enum estados_das_threads {
         terminada=4
         };
 
-PFILA2 fila_aptos;
-PFILA2 fila_bloqueados;
+FILA2 fila_aptos;
+FILA2 fila_bloqueados;
 
 TCB_t* em_execucao; //thread que está sendo executada
 ucontext_t contexto_escalonador; // contexto do escalonador

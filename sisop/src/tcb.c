@@ -33,21 +33,22 @@ void cria_contexto_escalonador()
     makecontext( &contexto_escalonador, (void (*)(void))escalonador, 0);
 }
 
-int escalonador(int TID)
-{
-	volatile int trocou_de_contexto = 0;
+int escalonador(){
+	 if(em_execucao->state==executando){
+	    em_execucao->state=apta;
+	    getcontext(&(em_execucao->context));
+	    insere_tcb(&fila_aptos,em_execucao);
+        if(FirstFila2(&fila_aptos)==0){
+                em_execucao=GetAtIteratorFila2(&fila_aptos);
+                em_execucao->state=executando;
+                setcontext(&(em_execucao->context));
+                if(DeleteAtIteratorFila2(&fila_aptos))
+                    return 0;
+				//setcontext(&(em_execucao->context));//executa outra thread
+        }
+	 }
 
-	if(em_execucao->state==apta){
-	    insere_tcb(fila_aptos,em_execucao);
-	    if(trocou_de_contexto==0) trocou_de_contexto=1;
-        return getcontext(&(em_execucao->context));
-	}
-	else if (em_execucao->state == bloqueada){
-		//insere_tcb(fila_bloqueados,em_execucao);
-		if(trocou_de_contexto==0) trocou_de_contexto=1;
-		return getcontext(&(em_execucao->context));
-	}
-	else return -1;
+     return -1;
 
 }
 

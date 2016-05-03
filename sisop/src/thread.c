@@ -23,8 +23,8 @@ int inicializacao_estruturas()
 {
     int cria_filas;
     em_execucao=NULL; // nenhuma está sendo executada no início
-    if((cria_filas= CreateFila2(fila_aptos))) // inicializa as filas
-	if((cria_filas= CreateFila2(fila_bloqueados))){} // do nothing
+    if(CreateFila2(&fila_aptos)) // inicializa as filas
+	if(CreateFila2(&fila_bloqueados)){} // do nothing
 
 
 	TID=0; // thread main recebe 0
@@ -66,8 +66,7 @@ int cria_thread (void* (*start)(void*), void *arg){
 	else{
 		getcontext(&(tcb->context));
 		makecontext(&(tcb->context),(void(*)(void))start,1,arg);
-		insere_tcb(fila_aptos,tcb);
-        //fila_aptos->it = fila_aptos->first = fila_aptos->last = NULL;
+		insere_tcb(&fila_aptos,tcb);
 		return tcb->tid;
 	}
 	return 0;
@@ -75,7 +74,8 @@ int cria_thread (void* (*start)(void*), void *arg){
 
 
 int liberando_cpu (){
-    return 0;
+    em_execucao->state= apta;
+    return escalonador();
 }
 
 

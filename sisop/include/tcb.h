@@ -12,4 +12,4 @@ int TID;
 TCB_t* cria_tcb ();
 
 void insere_tcb(PFILA2 pFila,TCB_t* tcb_nova);
-int escalonador(int id_thread);
+int escalonador();
