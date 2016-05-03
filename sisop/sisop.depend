@@ -1,0 +1,58 @@
+# depslib dependency file v1.0
+1462229825 source:/home/aluno/Desktop/sisop/exemplos/series.c
+	"../include/fila2.h"
+	"../include/cthread.h"
+	<stdio.h>
+
+1462195953 /home/aluno/Desktop/sisop/include/fila2.h
+
+1462196004 /home/aluno/Desktop/sisop/include/cthread.h
+
+1462230926 source:/home/aluno/Desktop/sisop/src/cthread.c
+	"../include/cdata.h"
+	"../include/fila2.h"
+	"../include/cthread.h"
+
+1462196039 /home/aluno/Desktop/sisop/include/cdata.h
+	<ucontext.h>
+
+1462232103 source:/home/aluno/Desktop/sisop/src/fila2.c
+	<stdlib.h>
+	"../include/fila2.h"
+
+1462239417 source:/home/aluno/Desktop/sisop/src/tcb.c
+	"../include/tcb.h"
+	"../include/fila2.h"
+
+1462239427 /home/aluno/Desktop/sisop/include/tcb.h
+	<stdio.h>
+	<stdlib.h>
+	"../include/cdata.h"
+	"../include/fila2.h"
+	"../include/thread.h"
+	<ucontext.h>
+
+1462231916 /home/aluno/Desktop/sisop/include/thread.h
+	<stdio.h>
+	<stdlib.h>
+	<ucontext.h>
+	"../include/cdata.h"
+	"../include/fila2.h"
+	"../include/cthread.h"
+
+1462239204 source:/home/aluno/Desktop/sisop/src/thread.c
+	"../include/fila2.h"
+	"../include/cthread.h"
+	"../include/thread.h"
+	"../include/tcb.h"
+	<ucontext.h>
+
+1462231858 source:/home/aluno/Desktop/sisop/src/main.c
+	<stdlib.h>
+	<unistd.h>
+	<pthread.h>
+	<errno.h>
+	"../include/fila2.h"
+	"../include/cthread.h"
+	<stdio.h>
+

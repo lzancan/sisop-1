@@ -1,0 +1,19 @@
+#include "tcb.h"
+
+TCB_t* cria_tcb (PFILA2 fila_aptos){
+        TCB_t* tcb = (TCB_t*)malloc(sizeof(TCB_t));
+        if(tcb != NULL){
+                tcb->tid=TID;
+                tcb->state=criada;
+                TID++;
+                tcb->context.uc_stack.ss_sp = (char*)malloc(SIGSTKSZ*sizeof(char));
+	        tcb->context.uc_stack.ss_size = (SIGSTKSZ*sizeof(char));
+                
+        }
+        return tcb;
+}
+
+void insere_tcb(PFILA2 pFila,TCB_t tcb_nova){
+        if(AppendFila2(PFILA2 pFila, tcb_nova)==0)
+                break;
+}

@@ -1,0 +1,38 @@
+#ifndef __THREAD_H__
+#define __THREAD_H__
+
+
+// includes
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <ucontext.h>
+#include "cdata.h"
+#include "fila2.h"
+
+enum estados_das_threads { 
+        criada=0, 
+        apta=1, 
+        executando=2, 
+        bloqueada=3, 
+        terminada=4
+        };
+
+int cria_thread (void* (*start)(void*), void *arg,PFILA2 fila_aptos);
+
+int liberando_cpu ();
+
+
+int sincronizacao (int tid);
+
+
+int inicia_semaforo (csem_t *sem, int count);
+
+
+
+int aloca_recurso (csem_t *sem);
+
+
+int libera_recurso (csem_t *sem);
+
+#endif

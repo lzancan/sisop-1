@@ -10,49 +10,34 @@
 //------------------------------------------------------------------\\
 
 
-
+//Includes e declarações globais
+#include "cdata.h"
+#include "fila2.h"
 #include "cthread.h"
-#include "thread.h"
 
 
 
-
-int cria_thread (void* (*start)(void*), void *arg,PFILA2 fila_aptos){
-        TCB_t* tcb = cria_tcb();
-	if(tcb == NULL)
-	        return -1;
-	else{
-		getcontext(&(tcb->context));
-		tcb->context.uc_link = &ExitContext;
-		makecontext(&(tcb->context),(void(*)(void))start,arg);
-		insere_tcb(fila_aptos,tcb); 
-		return tcb->tid;
-	}
+int ccreate (void* (*start)(void*), void *arg){ // cria nova thread
+        return cria_thread (start, arg);
 }
 
-
-int liberando_cpu (){
-
+int cyield(void){ // libera cpu
+        return liberando_cpu ();
 }
 
-
-int sincronizacao (int tid){
-
+int cjoin(int tid){ // sincronização
+        return sincronizacao (tid);
 }
 
-
-int inicia_semaforo (csem_t *sem, int count){
-
+int csem_init(csem_t *sem, int count){ // inicia o semáforo
+        return inicia_semaforo (sem,count);
 }
 
-
-
-int aloca_recurso (csem_t *sem){
-
+int cwait(csem_t *sem){ // aloca um recurso
+        return aloca_recurso (sem);
 }
 
-
-int libera_recurso (csem_t *sem){
-
+int csignal(csem_t *sem){ // libera um recurso
+        return libera_recurso (sem);
 }
 
