@@ -22,7 +22,6 @@
 int inicializacao_estruturas()
 {
     int cria_filas;
-    em_execucao=NULL; // nenhuma está sendo executada no início
     if(CreateFila2(&fila_aptos)) // inicializa as filas
 	if(CreateFila2(&fila_bloqueados)){} // do nothing
 
@@ -48,7 +47,7 @@ int cria_thread_main(ucontext_t contexto_main)
 		tcb->state =executando;
 		tcb->context = contexto_main;
 		tcb->context.uc_link = NULL;
-		em_execucao = tcb;
+		em_execucao = *tcb;
 		if(tcb->tid == 0){
 			return tcb->tid;
 		}
@@ -74,14 +73,15 @@ int cria_thread (void* (*start)(void*), void *arg){
 
 
 int liberando_cpu (){
-    em_execucao->state= apta;
+    em_execucao.state=apta;
     return escalonador(0);
 }
 
 
 int sincronizacao (int tid){
-    em_execucao->state=bloqueada;
+    em_execucao.state=bloqueada;
     return escalonador(tid);
+    return 0;
 }
 
 

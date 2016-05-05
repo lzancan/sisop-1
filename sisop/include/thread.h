@@ -23,7 +23,7 @@ enum estados_das_threads {
 FILA2 fila_aptos;
 FILA2 fila_bloqueados;
 
-TCB_t* em_execucao; //thread que está sendo executada
+TCB_t em_execucao; //thread que está sendo executada
 ucontext_t contexto_escalonador; // contexto do escalonador
 
 void cria_contexto_escalonador();

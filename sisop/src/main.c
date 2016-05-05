@@ -19,7 +19,6 @@
 #include "../include/fila2.h"
 #include "../include/cthread.h"
 #include <stdio.h>
-#include "../include/thread.h"
 
 
 #define   CHAIRS 5
@@ -42,6 +41,7 @@ void sleepao() {
 void cut_hair(void)
 {
     cyield(); cyield(); cyield(); cyield;
+    return;
 }
 
 void* barber(void* arg)
@@ -55,7 +55,7 @@ void* barber(void* arg)
      cut_hair();
      csignal(&barbers);
   }
-  return 0;
+  return;
 }
 
 void* customer(void* arg)
@@ -74,13 +74,13 @@ void* customer(void* arg)
       }
       sleepao();
     }
-    return 0;
+    return;
 }
 
 int main(int argc, char **argv)
 {
     int tidBarber, tidCustomer;
-    inicializacao_estruturas();
+
     end_time=time(NULL)+120;  /*Barbearia fica aberta 120 s */
     srand((unsigned)time(NULL));
 
@@ -89,13 +89,14 @@ int main(int argc, char **argv)
     csem_init(&mutex, 1);
 
     tidBarber = ccreate (barber, (void *) NULL);
-    //printf ("%d", tidBarber);
     if (tidBarber < 0 )
        perror("Erro na criação do Barbeiro...\n");
 
     tidCustomer = ccreate (customer, (void *) NULL);
     if (tidCustomer < 0 )
        perror("Erro na criação do gerador de clientes...\n");
+    cjoin(tidBarber);
+    cjoin(tidCustomer);
 
     exit(0);
 }

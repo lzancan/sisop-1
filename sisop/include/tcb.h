@@ -12,4 +12,5 @@ int TID;
 TCB_t* cria_tcb ();
 
 void insere_tcb(PFILA2 pFila,TCB_t* tcb_nova);
-int escalonador();
+int escalonador(int tid);
+TCB_t* procura_tcb (PFILA2 fila, int tid);

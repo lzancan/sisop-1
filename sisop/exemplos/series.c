@@ -1,9 +1,9 @@
 
 //
-// Programa de teste para primitivas de criaÁ„o e sincronizaÁ„o
+// Programa de teste para primitivas de cria√ß√£o e sincroniza√ß√£o
 //
 // Disclamer: este programa foi desenvolvido para auxiliar no desenvolvimento
-//            de testes para o micron˙cleo. N√O H¡ garantias de estar correto.
+//            de testes para o micron√∫cleo. N√ÉO H√Å garantias de estar correto.
 
 #include "../include/fila2.h"
 #include "../include/cthread.h"
@@ -44,13 +44,14 @@ void* fibonnaci (void *i) {
 int main(int argc, char **argv) {
 	int id0, id1;
 	int i = 10;
-	//id0 = ccreate(fatorial, (void *)&i);
+
+	id0 = ccreate(fatorial, (void *)&i);
 	id1 = ccreate(fibonnaci, (void *)&i);
-    printf("id0: %d\nid1: %d\n",id0,id1);
+
         printf("Threads fatorial e Fibonnaci criadas...\n");
 
-	//cjoin(id0);
-	//cjoin(id1);
+	cjoin(id0);
+	cjoin(id1);
 
 	printf("Main retornando para terminar o programa\n");
 }

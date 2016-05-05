@@ -18,7 +18,7 @@ TCB_t* cria_tcb (){
 }
 
 void insere_tcb(PFILA2 fila,TCB_t* tcb_nova){
-        if(AppendFila2(fila, tcb_nova)){}
+        if(AppendFila2(fila, (TCB_t*)tcb_nova)){}
 }
 
 
@@ -34,27 +34,56 @@ void cria_contexto_escalonador()
 }
 
 int escalonador(int tid){
-	 if(em_execucao->state==executando){
-	    em_execucao->state=apta;
-	    getcontext(&(em_execucao->context));
-	    insere_tcb(&fila_aptos,em_execucao);
+     TCB_t* tcb_aux =NULL;
+     tcb_aux=&em_execucao;
+	 if(em_execucao.state==apta){
+	    getcontext(&(em_execucao.context));
+	    insere_tcb(&fila_aptos,&em_execucao);
         if(FirstFila2(&fila_aptos)==0){
-                em_execucao=GetAtIteratorFila2(&fila_aptos);
-                em_execucao->state=executando;
-                setcontext(&(em_execucao->context));
+                tcb_aux=(TCB_t*)GetAtIteratorFila2(&fila_aptos);
+                em_execucao=*tcb_aux;
+                em_execucao.state=bloqueada;
+                setcontext(&(em_execucao.context));
                 if(DeleteAtIteratorFila2(&fila_aptos))
                     return 0;
         }
 	 }
-	 if(em_execucao->state==bloqueada){
-        if(AppendFila2(&fila_bloqueados, em_execucao)){
-            if(tid != 0){
-			// fazer //
-            }
+	 if(em_execucao.state==bloqueada){
+        if(AppendFila2(&fila_bloqueados, tcb_aux)==0){
+            getcontext(&(em_execucao.context));
+            tcb_aux=procura_tcb(&fila_aptos,tid);
+            em_execucao=*tcb_aux;
+            em_execucao.state=executando;
+            setcontext(&(em_execucao.context));
         }
 	 }
 
      return -1;
+}
+
+TCB_t* procura_tcb (PFILA2 fila, int tid){
+
+    TCB_t* tcb=NULL;
+    int achou=0;
+    int tid_procurado=-1;
+    if(FirstFila2(fila)==0){
+        tcb=GetAtIteratorFila2(fila);
+        tid_procurado=tcb->tid;
+        if(tid_procurado==tid) achou = 1;
+        else{
+            achou = 0;
+            while(!achou && fila->it!=fila->last){
+                fila->it = fila->it->next;
+                tcb=GetAtIteratorFila2(fila);
+                tid_procurado=tcb->tid;
+                if(tid_procurado==tid) achou = 1;
+                else achou = 0;
+            }
+
+        }
+    }
+    return tcb;
+
 }
 
 
