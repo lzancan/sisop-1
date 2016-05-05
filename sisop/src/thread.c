@@ -21,7 +21,6 @@
 
 int inicializacao_estruturas()
 {
-    int cria_filas;
     if(CreateFila2(&fila_aptos)) // inicializa as filas
 	if(CreateFila2(&fila_bloqueados)){} // do nothing
 
@@ -86,17 +85,29 @@ int sincronizacao (int tid){
 
 
 int inicia_semaforo (csem_t *sem, int count){
-    return 0;
+    sem->count=count;
+    sem->fila=&fila_bloqueados;
+    if(sem!=NULL) return 0;
+    else return 1;
 }
 
 
 
 int aloca_recurso (csem_t *sem){
-    return 0;
+    if(sem->count >0){
+        sem->count=sem->count-1;
+        return 0;
+    }
+    else{
+       sem->count=sem->count-1;
+       em_execucao.state=bloqueada;
+       return escalonador(-1);
+    }
 }
 
 
 int libera_recurso (csem_t *sem){
-    return 0;
+    sem->count=sem->count+1;
+    return desbloqueia_recurso();
 }
 

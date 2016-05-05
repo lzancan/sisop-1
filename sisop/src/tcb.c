@@ -24,7 +24,7 @@ void insere_tcb(PFILA2 fila,TCB_t* tcb_nova){
 
 
 
-void cria_contexto_escalonador()
+void cria_contexto_escalonador(void)
 {
     getcontext(&contexto_escalonador);
     contexto_escalonador.uc_stack.ss_sp = (char*) malloc(SIGSTKSZ);
@@ -36,6 +36,18 @@ void cria_contexto_escalonador()
 int escalonador(int tid){
      TCB_t* tcb_aux =NULL;
      tcb_aux=&em_execucao;
+     if(em_execucao.state==bloqueada && tid==-1){
+         getcontext(&(em_execucao.context));
+         if(AppendFila2(&fila_bloqueados, tcb_aux)==0){
+             if(FirstFila2(&fila_bloqueados)==0){
+                tcb_aux=(TCB_t*)GetAtIteratorFila2(&fila_aptos);
+                em_execucao=*tcb_aux;
+                em_execucao.state=executando;
+                setcontext(&(em_execucao.context));
+             }
+         }
+     }
+    else{
 	 if(em_execucao.state==apta){
 	    getcontext(&(em_execucao.context));
 	    insere_tcb(&fila_aptos,&em_execucao);
@@ -57,6 +69,7 @@ int escalonador(int tid){
             setcontext(&(em_execucao.context));
         }
 	 }
+    }
 
      return -1;
 }
@@ -83,7 +96,22 @@ TCB_t* procura_tcb (PFILA2 fila, int tid){
         }
     }
     return tcb;
+}
 
+int desbloqueia_recurso(void){
+    TCB_t* tcb_aux=NULL;
+    if(&fila_bloqueados!=NULL){
+        if(FirstFila2(&fila_bloqueados)==0){
+            tcb_aux=GetAtIteratorFila2(&fila_bloqueados);
+            tcb_aux->state=apta;
+            if(DeleteAtIteratorFila2(&fila_bloqueados)&&AppendFila2(&fila_aptos, tcb_aux)==0){
+                return 0;
+            }
+
+
+        }
+    }
+    else return -1;
 }
 
 
