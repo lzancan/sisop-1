@@ -56,7 +56,7 @@
 	"../include/cthread.h"
 	<stdio.h>
 
-1462230926 source:/home/aluno/sisop-1/sisop/src/cthread.c
+1462493916 source:/home/aluno/sisop-1/sisop/src/cthread.c
 	"../include/cdata.h"
 	"../include/fila2.h"
 	"../include/cthread.h"
@@ -72,20 +72,16 @@
 	<stdlib.h>
 	"../include/fila2.h"
 
-1462490066 source:/home/aluno/sisop-1/sisop/src/main.c
-	<stdlib.h>
-	<unistd.h>
-	<pthread.h>
-	<errno.h>
+1462500902 source:/home/aluno/sisop-1/sisop/src/main.c
 	"../include/fila2.h"
 	"../include/cthread.h"
 	<stdio.h>
 
-1462490990 source:/home/aluno/sisop-1/sisop/src/tcb.c
+1462501250 source:/home/aluno/sisop-1/sisop/src/tcb.c
 	"../include/tcb.h"
 	"../include/fila2.h"
 
-1462490980 /home/aluno/sisop-1/sisop/include/tcb.h
+1462501248 /home/aluno/sisop-1/sisop/include/tcb.h
 	<stdio.h>
 	<stdlib.h>
 	"../include/cdata.h"
@@ -93,18 +89,18 @@
 	"../include/thread.h"
 	<ucontext.h>
 
-1462420970 /home/aluno/sisop-1/sisop/include/thread.h
+1462498034 /home/aluno/sisop-1/sisop/include/thread.h
 	<stdio.h>
 	<stdlib.h>
 	<ucontext.h>
 	"../include/cdata.h"
 	"../include/fila2.h"
 	"../include/cthread.h"
+	"../include/tcb.h"
 
-1462490971 source:/home/aluno/sisop-1/sisop/src/thread.c
+1462499745 source:/home/aluno/sisop-1/sisop/src/thread.c
 	"../include/fila2.h"
 	"../include/cthread.h"
 	"../include/thread.h"
-	"../include/tcb.h"
 	<ucontext.h>
 

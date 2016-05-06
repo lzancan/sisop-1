@@ -8,11 +8,8 @@
 
 int TID;
 
-
 TCB_t* cria_tcb ();
-
 void insere_tcb(PFILA2 pFila,TCB_t* tcb_nova);
-void cria_contexto_escalonador(void);
 int desbloqueia_recurso(void);
 int escalonador(int tid);
 TCB_t* procura_tcb (PFILA2 fila, int tid);

@@ -10,6 +10,7 @@
 #include "../include/cdata.h"
 #include "../include/fila2.h"
 #include "../include/cthread.h"
+#include "../include/tcb.h"
 
 
 enum estados_das_threads {
@@ -24,13 +25,14 @@ FILA2 fila_aptos;
 FILA2 fila_bloqueados;
 
 TCB_t em_execucao; //thread que está sendo executada
+
 ucontext_t contexto_escalonador; // contexto do escalonador
+ucontext_t contexto_main;
 
 void cria_contexto_escalonador();
-int scheduler();
 
+int escalonador(int tid);
 
-int inicializacao_estruturas();
 
 int cria_thread_main(ucontext_t contexto_main);
 
